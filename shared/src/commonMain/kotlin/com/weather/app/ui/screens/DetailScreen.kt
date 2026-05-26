@@ -78,12 +78,12 @@ fun DetailScreen(
                                 "Влажность", "${weather.humidity}%"
                             )
                             com.weather.app.ui.components.WeatherDetailItem(
-                                "Ветер", "${"%.1f".format(weather.windSpeed)} км/ч"
+                                "Ветер", "${roundToOneDecimal(weather.windSpeed)} км/ч"
                             )
                         }
                         Spacer(Modifier.height(8.dp))
                         Text(
-                            text  = "Координаты: ${"%.4f".format(weather.lat)}, ${"%.4f".format(weather.lon)}",
+                            text  = "Координаты: ${roundToFour(weather.lat)}, ${roundToFour(weather.lon)}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
                         )
@@ -131,17 +131,29 @@ private fun ForecastCard(day: ForecastDay) {
                 modifier = Modifier.weight(1.5f)
             )
             Text(
-                text     = "${"%.1f".format(day.precipitation)} мм",
+                text     = "${roundToOneDecimal(day.precipitation)} мм",
                 style    = MaterialTheme.typography.bodySmall,
                 color    = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text     = "${"%.0f".format(day.windSpeed)} км/ч",
+                text     = "${day.windSpeed.toInt()} км/ч",
                 style    = MaterialTheme.typography.bodySmall,
                 color    = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                 modifier = Modifier.weight(1f)
             )
         }
     }
+}
+
+private fun roundToOneDecimal(value: Double): String {
+    val intPart = value.toInt()
+    val decPart = ((value - intPart) * 10).toInt()
+    return "$intPart.$decPart"
+}
+
+private fun roundToFour(value: Double): String {
+    val intPart = value.toInt()
+    val decPart = ((value - intPart) * 10000).toInt()
+    return "$intPart.$decPart"
 }

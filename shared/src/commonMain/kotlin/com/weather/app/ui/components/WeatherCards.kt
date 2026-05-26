@@ -73,7 +73,7 @@ fun CityCard(
             ) {
                 WeatherDetailItem("Ощущается", "${weather.feelsLike.roundToInt()}°C")
                 WeatherDetailItem("Влажность",  "${weather.humidity}%")
-                WeatherDetailItem("Ветер",      "${"%.1f".format(weather.windSpeed)} км/ч")
+                WeatherDetailItem("Ветер",      "${roundToOneDecimal(weather.windSpeed)} км/ч")
             }
 
             Spacer(Modifier.height(8.dp))
@@ -149,4 +149,10 @@ fun ErrorCard(
             TextButton(onClick = onDismiss) { Text("OK") }
         }
     }
+
+}
+private fun roundToOneDecimal(value: Double): String {
+    val intPart = value.toInt()
+    val decPart = ((value - intPart) * 10).toInt()
+    return "$intPart.$decPart"
 }
