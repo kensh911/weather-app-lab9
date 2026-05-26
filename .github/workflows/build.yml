@@ -19,6 +19,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Run common tests
         run: ./gradlew :shared:jvmTest --no-daemon
 
@@ -42,6 +45,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build Android APK
         run: ./gradlew :androidApp:assembleDebug --no-daemon
 
@@ -64,6 +70,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build Desktop
         run: ./gradlew :desktopApp:createDistributable --no-daemon
 
@@ -85,6 +94,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: Build Web
         run: ./gradlew :webApp:wasmJsBrowserDistribution --no-daemon
